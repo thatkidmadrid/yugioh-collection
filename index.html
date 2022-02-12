@@ -76,7 +76,8 @@
         if (isSignedIn) {
           authorizeButton.style.display = 'none';
           signoutButton.style.display = 'block';
-          listMajors();
+          // listMajors();
+          listSets();
         } else {
           authorizeButton.style.display = 'block';
           signoutButton.style.display = 'none';
@@ -125,6 +126,27 @@
               var row = range.values[i];
               // Print columns A and E, which correspond to indices 0 and 4.
               appendPre(row[0] + ', ' + row[4]);
+            }
+          } else {
+            appendPre('No data found.');
+          }
+        }, function(response) {
+          appendPre('Error: ' + response.result.error.message);
+        });
+      }
+
+      function listSets() {
+        gapi.client.sheets.spreadsheets.values.get({
+          spreadsheetId: '1iCxom0fLF7Ot9xjAFQsW1rAmUqy_SWd-CeHDlyYuy-g',
+          range: 'Sets!A',
+        }).then(function(response) {
+          var range = response.result;
+          if (range.values.length > 0) {
+            appendPre('Set:');
+            for (i = 0; i < range.values.length; i++) {
+              var row = range.values[i];
+              // Print columns A and E, which correspond to indices 0 and 4.
+              appendPre(row[0]);
             }
           } else {
             appendPre('No data found.');
