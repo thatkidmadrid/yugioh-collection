@@ -138,7 +138,7 @@
       function listSets() {
         gapi.client.sheets.spreadsheets.values.get({
           spreadsheetId: '1iCxom0fLF7Ot9xjAFQsW1rAmUqy_SWd-CeHDlyYuy-g',
-          range: 'Sets!A',
+          range: 'Sets!A1:A',
         }).then(function(response) {
           var range = response.result;
           if (range.values.length > 0) {
