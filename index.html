@@ -17,7 +17,16 @@
     <button id="authorize_button" style="display: none;">Authorize</button>
     <button id="signout_button" style="display: none;">Sign Out</button>
 
-    <pre id="content" style="white-space: pre-wrap;"></pre>
+    <pre id="content" style="white-space: pre-wrap;">
+
+    </pre>
+
+    <form action="">
+      <label for="set">Set</label>
+      <select name="set" id="set">
+        <option value="" disabled selected>Select a set...</option>
+      </select>
+    </form>
 
     <footer>
       <small>©thatkidmadrid 2022</small>
@@ -110,6 +119,13 @@
         pre.appendChild(textContent);
       }
 
+      function appendSet(message) {
+        $('#set').append($('<option>', {
+            value: message,
+            text: message
+        }));
+      }
+
       /**
        * Print the names and majors of students in a sample spreadsheet:
        * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
@@ -142,11 +158,11 @@
         }).then(function(response) {
           var range = response.result;
           if (range.values.length > 0) {
-            appendPre('Set:');
+            // appendPre('Set:');
             for (i = 0; i < range.values.length; i++) {
               var row = range.values[i];
               // Print columns A and E, which correspond to indices 0 and 4.
-              appendPre(row[0]);
+              appendSet(row[0]);
             }
           } else {
             appendPre('No data found.');
